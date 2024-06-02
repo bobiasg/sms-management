@@ -8,4 +8,5 @@ export const AppConfig = {
   locales: ['en', 'fr'],
   defaultLocale: 'en',
   localePrefix,
+  localeDetection: true,
 };
