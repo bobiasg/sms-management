@@ -1,35 +1,23 @@
-import '@/styles/global.css';
+import '@/public/splash-screen.css';
+import '@/styles/global.scss';
 
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 
-import { DemoBadge } from '@/components/DemoBadge';
+import { toAbsoluteUrl } from '@/libs/AssetHelpers';
+import QueryProviders from '@/libs/providers/react-query-provider';
+import StoreProvider from '@/libs/stores/store-provider';
 import { AppConfig } from '@/utils/AppConfig';
 
+import SplashScreen from './splash-screen';
+
 export const metadata: Metadata = {
-  icons: [
-    {
-      rel: 'apple-touch-icon',
-      url: '/apple-touch-icon.png',
-    },
-    {
-      rel: 'icon',
-      type: 'image/png',
-      sizes: '32x32',
-      url: '/favicon-32x32.png',
-    },
-    {
-      rel: 'icon',
-      type: 'image/png',
-      sizes: '16x16',
-      url: '/favicon-16x16.png',
-    },
-    {
-      rel: 'icon',
-      url: '/favicon.ico',
-    },
-  ],
+  title:
+    "Metronic - The World's #1 Selling React & Bootstrap Admin Template by KeenThemes",
+  description: 'My App is a...',
+  icons: toAbsoluteUrl('media/logos/favicon.ico'),
 };
 
 export default function RootLayout(props: {
@@ -44,15 +32,24 @@ export default function RootLayout(props: {
 
   return (
     <html lang={props.params.locale}>
-      <body>
-        <NextIntlClientProvider
-          locale={props.params.locale}
-          messages={messages}
-        >
-          {props.children}
+      <body id="kt_body" className="page-loading">
+        <div id="root">
+          <StoreProvider>
+            <QueryProviders>
+              <NextIntlClientProvider
+                locale={props.params.locale}
+                messages={messages}
+              >
+                {props.children}
+              </NextIntlClientProvider>
+              <ReactQueryDevtools initialIsOpen={false} />
+            </QueryProviders>
+          </StoreProvider>
+        </div>
 
-          <DemoBadge />
-        </NextIntlClientProvider>
+        <SplashScreen />
+
+        <div id="root-modals" />
       </body>
     </html>
   );

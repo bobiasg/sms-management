@@ -20,7 +20,6 @@ export default function middleware(
   request: NextRequest,
   event: NextFetchEvent,
 ) {
-  console.log(request.nextUrl);
   // I want to customize the locale cookie
   // when use access without locale in pathname, I want to use locale in cookie
   // when use access with locale in pathname, I want to use locale in pathname, and set it to cookie
