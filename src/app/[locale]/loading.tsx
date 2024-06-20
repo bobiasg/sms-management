@@ -1,17 +1,20 @@
+import './loading.css'; // Global styles for the loading screen
+
 import Image from 'next/image';
 
-import { toAbsoluteUrl } from '@/libs/AssetHelpers';
+import keenthemesLight from '@/public/media/logos/keenthemes.svg';
+import keenthemesDark from '@/public/media/logos/keenthemes-dark.svg';
 
-function SplashScreen() {
+function LayoutSplashScreen() {
   return (
     <div id="splash-screen" className="splash-screen">
       <Image
-        src={toAbsoluteUrl('/media/logos/keenthemes-dark.svg')}
+        src={keenthemesDark}
         className="dark-logo"
         alt="Keenthemes dark logo"
       />
       <Image
-        src={toAbsoluteUrl('/media/logos/keenthemes.svg')}
+        src={keenthemesLight}
         className="light-logo"
         alt="Keenthemes light logo"
       />
@@ -23,4 +26,4 @@ function SplashScreen() {
   );
 }
 
-export default SplashScreen;
+export default LayoutSplashScreen;

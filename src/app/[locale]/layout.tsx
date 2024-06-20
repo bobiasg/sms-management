@@ -1,5 +1,4 @@
-import '@/public/splash-screen.css';
-import '@/styles/global.scss';
+// import '@/styles/global.scss';
 
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { Metadata } from 'next';
@@ -10,8 +9,6 @@ import { toAbsoluteUrl } from '@/libs/AssetHelpers';
 import QueryProviders from '@/libs/providers/react-query-provider';
 import StoreProvider from '@/libs/stores/store-provider';
 import { AppConfig } from '@/utils/AppConfig';
-
-import SplashScreen from './splash-screen';
 
 export const metadata: Metadata = {
   title:
@@ -32,7 +29,10 @@ export default function RootLayout(props: {
 
   return (
     <html lang={props.params.locale}>
-      <body id="kt_body" className="page-loading">
+      <body
+        id="kt_body"
+        // className="page-loading"
+      >
         <div id="root">
           <StoreProvider>
             <QueryProviders>
@@ -46,8 +46,6 @@ export default function RootLayout(props: {
             </QueryProviders>
           </StoreProvider>
         </div>
-
-        <SplashScreen />
 
         <div id="root-modals" />
       </body>

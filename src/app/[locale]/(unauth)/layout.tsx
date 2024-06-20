@@ -1,85 +1,28 @@
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import '@/styles/front.scss';
 
-import LocaleSwitcher from '@/components/LocaleSwitcher';
-import { BaseTemplate } from '@/templates/BaseTemplate';
+import { Hind } from 'next/font/google';
+
+import Footer from '@/components/ui/unauth/footer';
+import Header from '@/components/ui/unauth/header';
+import ScrollTop from '@/components/ui/unauth/scroll-top';
+
+const hind = Hind({
+  weight: ['300', '400', '500', '600', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-hind',
+});
 
 export default function Layout(props: { children: React.ReactNode }) {
-  const t = useTranslations('RootLayout');
-
   return (
-    <BaseTemplate
-      leftNav={
-        <>
-          <li>
-            <Link
-              href="/"
-              className="border-none text-gray-700 hover:text-gray-900"
-            >
-              {t('home_link')}
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/about/"
-              className="border-none text-gray-700 hover:text-gray-900"
-            >
-              {t('about_link')}
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/guestbook/"
-              className="border-none text-gray-700 hover:text-gray-900"
-            >
-              {t('guestbook_link')}
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/portfolio/"
-              className="border-none text-gray-700 hover:text-gray-900"
-            >
-              {t('portfolio_link')}
-            </Link>
-          </li>
-          <li>
-            <a
-              className="border-none text-gray-700 hover:text-gray-900"
-              href="https://github.com/ixartz/Next-js-Boilerplate"
-            >
-              GitHub
-            </a>
-          </li>
-        </>
-      }
-      rightNav={
-        <>
-          <li>
-            <Link
-              href="/sign-in/"
-              className="border-none text-gray-700 hover:text-gray-900"
-            >
-              {t('sign_in_link')}
-            </Link>
-          </li>
+    <main className={hind.className}>
+      <Header />
 
-          <li>
-            <Link
-              href="/sign-up/"
-              className="border-none text-gray-700 hover:text-gray-900"
-            >
-              {t('sign_up_link')}
-            </Link>
-          </li>
+      {props.children}
 
-          <li>
-            <LocaleSwitcher />
-          </li>
-        </>
-      }
-    >
-      <div className="py-5 text-xl [&_p]:my-6">{props.children}</div>
-    </BaseTemplate>
+      <Footer />
+
+      <ScrollTop />
+    </main>
   );
 }

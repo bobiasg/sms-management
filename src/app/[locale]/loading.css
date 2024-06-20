@@ -1,15 +1,16 @@
-html {
+/* html {
   font-size: 13px;
   font-weight: 400;
   font-family: Inter,Helvetica,sans-serif;
   -webkit-font-smoothing: antialiased;
-}
+} */
 
 body.page-loading {
   margin: 0;
   height: 100%;
   overflow: hidden;
   transition: none !important;
+
 }
 
 .splash-screen {
