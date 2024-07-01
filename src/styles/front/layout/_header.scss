@@ -5,15 +5,15 @@
 /* Fixed Top */
 .fixed-top {
     .navbar-collapse {
-        height: 100%;
-        flex-shrink: 1;
-        flex-grow: 1;
+        // height: 100%;
+        // flex-shrink: 1;
+        // flex-grow: 1;
 
-        .navbar-nav {
-            height: 100%;
-            display: flex;
-            align-items: center;
-        }
+        // .navbar-nav {
+        //     height: 100%;
+        //     display: flex;
+        //     align-items: center;
+        // }
     }
 }
 
@@ -51,7 +51,11 @@
         padding: 0;
         margin: 35px 0;
 
-        .toggle-icon {
+        &:focus {
+          box-shadow: none
+        }
+
+        .navbar-toggler-icon {
             @include position(relative);
             @include size(21px, 1px);
             display: inline-block;
@@ -81,7 +85,7 @@
         }
 
         &:hover {
-            .toggle-icon {
+            .navbar-toggler-icon {
                 background: $color-base;
                 @include cubic-transition($delay: 0, $duration: 300ms, $property: (all));
 
@@ -189,6 +193,7 @@
         line-height: 55px;
         padding: 20px !important;
         @include cubic-transition($delay: 0, $duration: 300ms, $property: (all));
+        cursor: pointer;
 
         &:hover,
         &:focus {
@@ -217,32 +222,47 @@
     .header {
         background: $color-white;
 
-        .navbar-toggler {
-            display: block;
-        }
+        // .navbar-toggler {
+        //     display: block;
+        // }
 
-        .navbar-collapse {
-            &.collapse {
-                display: none !important;
+        // .navbar-collapse {
+        //   transition: max-height 0.5s ease-in-out;
 
-                &.in {
-                    display: block !important;
-                }
-            }
-        }
+        //   &.collapse {
+        //     max-height: 0;
+        //     overflow: hidden;
+        //     visibility: hidden; // Hide content when collapsed
+        //     display: flex;
+
+        //     .navbar-nav {
+        //       flex-grow: 1;
+        //     }
+
+        //     &.show {
+        //         max-height: 300px; // Adjust based on the content's actual height
+        //         visibility: visible; // Ensure content is visible when expanded
+        //     }
+        // }
+        // }
 
         .nav-collapse {
             padding-left: 0;
             padding-right: 0;
         }
 
-        .navbar-nav {
-            margin: 0;
-            float: none;
+        // .navbar-nav {
+        //     margin: 0;
+        //     float: none;
 
-            .nav-item {
-                float: none;
-            }
+        //     .nav-item {
+        //         float: none;
+        //     }
+        // }
+
+        > .container {
+          padding-left: 15px;
+          padding-right: 15px;
         }
     }
 
@@ -263,7 +283,7 @@
 
         .nav-item-hover {
             &:after {
-                @include position(absolute, $top: 19px);
+                @include position(absolute, $top: 26px);
             }
         }
     }
@@ -280,22 +300,22 @@
             margin-right: 0;
         }
 
-        .navbar {
-            > .container {
-                width: auto;
-                padding-left: 0;
-                padding-right: 0;
-                margin-left: 0;
-                margin-right: 0;
+        // .navbar {
+        //     > .container {
+        //         width: auto;
+        //         padding-left: 0;
+        //         padding-right: 0;
+        //         margin-left: 0;
+        //         margin-right: 0;
 
-                > .nav-collapse {
-                    padding-left: 0;
-                    padding-right: 0;
-                    margin-left: 0;
-                    margin-right: 0;
-                }
-            }
-        }
+        //         > .nav-collapse {
+        //             padding-left: 0;
+        //             padding-right: 0;
+        //             margin-left: 0;
+        //             margin-right: 0;
+        //         }
+        //     }
+        // }
     }
 }
 
@@ -316,12 +336,12 @@
             .navbar {
                 background: $color-white;
                 border-bottom-color: #f0f0f0;
-                @include cubic-transition($delay: 0, $duration: 300ms, $property: (all));
+                @include cubic-transition($delay: 0, $duration: 300ms, $property: (border));
             }
 
             .nav-item-child {
                 color: $color-heading;
-                @include cubic-transition($delay: 0, $duration: 300ms, $property: (all));
+                @include cubic-transition($delay: 0, $duration: 300ms, $property: (border));
             }
         }
     }
