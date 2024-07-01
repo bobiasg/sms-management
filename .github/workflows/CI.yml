@@ -92,7 +92,7 @@ jobs:
         if: always()
         with:
           name: mini-crm-app
-          path: mini-crm-app/
+          path: .
           retention-days: 7
 
   deploy:
