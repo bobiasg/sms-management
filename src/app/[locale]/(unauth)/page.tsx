@@ -32,9 +32,9 @@ export default async function Index() {
             <Col md={6} className="sm-margin-b-60">
               <div className="margin-b-30">
                 <h1 className="promo-block-title">
-                  Alisa <br /> Portman
+                  Khuong <br /> Nguyen
                 </h1>
-                <p className="promo-block-text">Web &amp; UI/UX Designer</p>
+                <p className="promo-block-text">Senior Software Enginneer </p>
               </div>
               <ul className="list-inline">
                 <li>

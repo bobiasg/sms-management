@@ -45,6 +45,7 @@ function Header() {
                 <ScrollableLink
                   activeClass="active"
                   to="promo"
+                  href=""
                   spy
                   smooth
                   offset={0}
@@ -58,6 +59,7 @@ function Header() {
                 <ScrollableLink
                   activeClass="active"
                   to="about"
+                  href="#about"
                   spy
                   smooth
                   offset={-50}
@@ -71,6 +73,7 @@ function Header() {
                 <ScrollableLink
                   activeClass="active"
                   to="work"
+                  href="#work"
                   spy
                   smooth
                   offset={-50}
@@ -84,6 +87,7 @@ function Header() {
                 <ScrollableLink
                   activeClass="active"
                   to="contact"
+                  href="#contact"
                   spy
                   smooth
                   offset={-50}
