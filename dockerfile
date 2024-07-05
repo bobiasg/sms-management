@@ -13,6 +13,7 @@ COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 
 # fix issue @libsql on alpine
 RUN jq '.overrides["@libsql/linux-x64-musl"] = "0.2.0"' package.json > temp.json && mv temp.json package.json
+RUN SKIP_PREPARE=true npm install --package-lock-only
 
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
