@@ -37,9 +37,9 @@ ENV NEXT_TELEMETRY_DISABLED 1
 
 # just run build-only (without db:migrate)
 RUN \
-  if [ -f yarn.lock ]; then yarn run build-only; \
-  elif [ -f package-lock.json ]; then npm run build-only; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build-only; \
+  if [ -f yarn.lock ]; then yarn run build; \
+  elif [ -f package-lock.json ]; then npm run build; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
   else echo "Lockfile not found." && exit 1; \
   fi
 
