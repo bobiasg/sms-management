@@ -31,7 +31,7 @@
     "@emotion/react": "^11.11.4",
     "@fortawesome/fontawesome-free": "^6.5.2",
     "@hookform/resolvers": "^3.4.2",
-    "@libsql/client": "^0.7.0",
+    "@libsql/client": "^0.6.2",
     "@logtail/pino": "^0.4.21",
     "@reduxjs/toolkit": "^2.2.5",
     "@sentry/nextjs": "^7.116.0",
