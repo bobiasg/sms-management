@@ -12,7 +12,7 @@ jobs:
     permissions:
       issues: write
     runs-on: ubuntu-latest
-    environment: staging # This environment requires manual approval in the repo settings
+    environment: production # This environment requires manual approval in the repo settings
     steps:
       - name: Wait for approving
         uses: trstringer/manual-approval@v1.9.0
