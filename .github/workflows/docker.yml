@@ -45,7 +45,7 @@ jobs:
         with:
           images: | 
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}
+            bobiasg/sms-management
           
       - name: Build and push container image to registry
         id: push
