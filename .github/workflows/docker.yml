@@ -25,7 +25,7 @@ jobs:
       attestations: write
 
     outputs:
-      image_name: ${{ steps.push.outputs.image_name }}
+      image_name: ${{ steps.get-build-name.outputs.image_name }}
     steps:
       - uses: actions/checkout@v4
 
@@ -55,7 +55,7 @@ jobs:
             type=sha, value= ${{ github.sha }}, prefix=sha-
           
       - name: Build and push container image to registry
-        id: push
+        id: docker-push
         uses: docker/build-push-action@v4
         with:
           push: true
@@ -63,11 +63,16 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           file: ./Dockerfile
+
+      - id: get-build-name
+        run: |
+          imageName=${{ fromJSON(steps.docker-push.outputs.metadata)['image.name'] }}
+          echo "::set-output name=image_name::$imageName"
         
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
         with:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
-          subject-digest: ${{ steps.push.outputs.digest }}
+          subject-digest: ${{ steps.docker-push.outputs.digest }}
           push-to-registry: true
  
