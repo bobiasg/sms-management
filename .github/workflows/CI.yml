@@ -90,7 +90,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
             
-      - name: Build Next.js for E2E tests
+      - name: Install package
         run: npm ci
 
       - name: Set SENTRY_AUTH_TOKEN env if secret exists
@@ -99,8 +99,8 @@ jobs:
             echo "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> $GITHUB_ENV
           fi
 
-#      - name: Build Next.js for E2E tests#
-#        run: npm run build
+      - name: Build Next.js for E2E tests#
+        run: npm run build
 
       - if: github.event_name == 'pull_request'
         name: Validate all commits from PR
