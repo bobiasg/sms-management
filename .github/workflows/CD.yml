@@ -62,12 +62,15 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     
-    - name: echo  data
+    - name: Set short git commit SHA
+      id: vars
       run: |
-        echo "from docker workflow: ${{ github.event.workflow_run.outputs.image_name }}"        
+        calculatedSha=$(git rev-parse --short ${{ github.sha }})
+        echo "COMMIT_SHORT_SHA=$calculatedSha" >> $GITHUB_ENV
+
     - name: Run tests
       env: 
-        IMAGE_NAME: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.outputs.image_name || format('{0}/{1}:sha-{2}', env.REGISTRY, github.repository, env.SHA) }}
+        IMAGE_NAME: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.outputs.image_name || format('{0}/{1}:sha-{2}', env.REGISTRY, github.repository, env.COMMIT_SHORT_SHA) }}
       run: |
         docker run --name app ${{ env.IMAGE_NAME }} /bin/sh -c "npm run test"
         docker rm app
@@ -103,10 +106,16 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     
+    - name: Set short git commit SHA
+      id: vars
+      run: |
+        calculatedSha=$(git rev-parse --short ${{ github.sha }})
+        echo "COMMIT_SHORT_SHA=$calculatedSha" >> $GITHUB_ENV
+  
     - name: 'Deploy to Azure WebApp'      
       id: deploy-to-container
       env: 
-        IMAGE_NAME: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.outputs.image_name || format('{0}/{1}:sha-{2}', env.REGISTRY, github.repository, github.sha) }}
+        IMAGE_NAME: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.outputs.image_name || format('{0}/{1}:sha-{2}', env.REGISTRY, github.repository, env.COMMIT_SHORT_SHA) }}
       uses: azure/webapps-deploy@v3
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
