@@ -23,6 +23,9 @@ jobs:
       packages: write
       id-token: write
       attestations: write
+
+    outputs:
+      image_name: ${{ steps.push.outputs.image_name }}
     steps:
       - uses: actions/checkout@v4
 
@@ -60,7 +63,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           file: ./Dockerfile
-          
+        
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
         with:
