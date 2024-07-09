@@ -75,8 +75,11 @@ jobs:
       env: 
         IMAGE_NAME: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.outputs.image_name || format('{0}/{1}:sha-{2}', env.REGISTRY, github.repository, env.COMMIT_SHORT_SHA) }}
       run: |
-        docker run --name app ${{ env.IMAGE_NAME }} /bin/sh -c "npm run test"
-        docker rm app
+        docker run --rm ${{ env.IMAGE_NAME }} /bin/bash -c "
+          npm ci && \
+          npm run test
+        "
+
   
 # approve:
 #    permissions:
