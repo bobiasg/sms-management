@@ -52,7 +52,7 @@ jobs:
           tags: |
             # set latest tag for default branch
             type=raw,value=latest
-            type=sha, value= {{ sha }}
+            type=sha, value= ${{ github.sha }}, prefix=sha-
           
       - name: Build and push container image to registry
         id: push
