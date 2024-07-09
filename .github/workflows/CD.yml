@@ -13,7 +13,7 @@ on:
 env:
   AZURE_WEBAPP_NAME: minicrm-bobiasg-docker    # set this to your application's name
   REGISTRY: ghcr.io
-  
+  SHA: ${git rev-parse --short HEAD}
 
 jobs:
 #  approve:
@@ -67,7 +67,7 @@ jobs:
         echo "from docker workflow: ${{ github.event.workflow_run.outputs.image_name }}"        
     - name: Run tests
       env: 
-        IMAGE_NAME: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.outputs.image_name || format('{0}/{1}:sha-{2}', env.REGISTRY, github.repository, github.sha) }}
+        IMAGE_NAME: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.outputs.image_name || format('{0}/{1}:sha-{2}', env.REGISTRY, github.repository, env.SHA) }}
       run: |
         docker run --name app ${{ env.IMAGE_NAME }} /bin/sh -c "npm run test"
         docker rm app
