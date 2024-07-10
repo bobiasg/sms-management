@@ -9,6 +9,11 @@ on:
       - main
 
   workflow_dispatch:
+    inputs:
+      repo_hash:
+        description: 'Hash of the repo to deploy'
+        required: true
+        default: ''
     
 env:
   AZURE_WEBAPP_NAME: minicrm-bobiasg-docker    # set this to your application's name
@@ -117,19 +122,24 @@ jobs:
     - name: Set short git commit SHA
       id: vars
       run: |
-        calculatedSha=$(git rev-parse --short ${{ github.sha }})
+        if [ -z "${{ github.event.inputs.repo_hash}}" ]; then
+          calculatedSha=$(git rev-parse --short ${{ github.sha }})
+        else
+          calculatedSha=${{ github.event.inputs.repo_hash }}
+        fi
+        
         echo "COMMIT_SHORT_SHA=$calculatedSha" >> $GITHUB_ENV
 
     - name: Check if image exists
       id: check-image
       run: |
-        IMAGE_NAME="${{ github.event_name == 'workflow_run' && github.event.workflow_run.outputs.image_name || format('{0}/{1}:sha-{2}', env.REGISTRY, github.repository, env.COMMIT_SHORT_SHA) }}"
-        if ! docker pull $IMAGE_NAME; then
-          echo "::error::Image $IMAGE_NAME does not exist."
+        imageName="${{ github.event_name == 'workflow_run' && github.event.workflow_run.outputs.image_name || format('{0}/{1}:sha-{2}', env.REGISTRY, github.repository, env.COMMIT_SHORT_SHA) }}"
+        if ! docker pull $imageName; then
+          echo "::error::Image $imageName does not exist."
           exit 1
         fi
 
-        echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
+        echo "IMAGE_NAME=$imageName" >> $GITHUB_ENV
         
     - name: 'Deploy to Azure WebApp'      
       id: deploy-to-container
