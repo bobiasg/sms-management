@@ -12,7 +12,7 @@ on:
     inputs:
       repo_hash:
         description: 'Hash of the repo to deploy'
-        required: true
+        required: false
         default: ''
     
 env:
@@ -127,7 +127,7 @@ jobs:
         else
           calculatedSha=${{ github.event.inputs.repo_hash }}
         fi
-        
+
         echo "COMMIT_SHORT_SHA=$calculatedSha" >> $GITHUB_ENV
 
     - name: Check if image exists
