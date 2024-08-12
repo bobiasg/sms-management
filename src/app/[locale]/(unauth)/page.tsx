@@ -1,6 +1,5 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
 import Image from 'next/image';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Col, Container, Row } from 'react-bootstrap';
 
 import ZoomImage from '@/components/ui/unauth/animate-image';
@@ -23,7 +22,9 @@ export async function generateMetadata(props: { params: { locale: string } }) {
   };
 }
 
-export default async function Index() {
+export default function Index(props: { params: { locale: string } }) {
+  unstable_setRequestLocale(props.params.locale);
+
   return (
     <>
       <div className="promo-block" id="promo">

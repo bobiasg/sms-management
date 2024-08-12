@@ -2,8 +2,8 @@
 
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
 
 import { toAbsoluteUrl } from '@/libs/AssetHelpers';
 import QueryProviders from '@/libs/providers/react-query-provider';
@@ -17,12 +17,15 @@ export const metadata: Metadata = {
   icons: toAbsoluteUrl('media/logos/favicon.ico'),
 };
 
+export function generateStaticParams() {
+  return AppConfig.locales.map((locale) => ({ locale }));
+}
+
 export default function RootLayout(props: {
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  // Validate that the incoming `locale` parameter is valid
-  if (!AppConfig.locales.includes(props.params.locale)) notFound();
+  unstable_setRequestLocale(props.params.locale);
 
   // Using internationalization in Client Components
   const messages = useMessages();
@@ -52,8 +55,3 @@ export default function RootLayout(props: {
     </html>
   );
 }
-
-// Enable edge runtime but you are required to disable the `migrate` function in `src/libs/DB.ts`
-// Unfortunately, this also means it will also disable the automatic migration of the database
-// And, you will have to manually migrate it with `drizzle-kit push`
-// export const runtime = 'edge';
